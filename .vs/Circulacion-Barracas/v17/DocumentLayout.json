@@ -1,0 +1,185 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\listadesviospage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:listadesviospage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\listadesviospage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:listadesviospage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\desvio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:desvio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\platforms\\android\\androidmanifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:platforms\\android\\androidmanifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\platforms\\android\\mainapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:platforms\\android\\mainapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|c:\\users\\jloliveto\\downloads\\app munro\\circulacion-barracas\\circulacion-barracas.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B74F6AE5-B639-45C8-A057-EA2C4D3A3A6B}|Circulacion-Barracas.csproj|solutionrelative:circulacion-barracas.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DatabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\DatabaseService.cs",
+              "RelativeDocumentMoniker": "DatabaseService.cs",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\DatabaseService.cs",
+              "RelativeToolTip": "DatabaseService.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAxwDYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-19T18:07:28.731Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\MainPage.xaml",
+              "RelativeDocumentMoniker": "MainPage.xaml",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\MainPage.xaml",
+              "RelativeToolTip": "MainPage.xaml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-19T17:27:54.618Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\MainPage.xaml.cs",
+              "RelativeToolTip": "MainPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-19T17:28:34.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ListaDesviosPage.xaml",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\ListaDesviosPage.xaml",
+              "RelativeDocumentMoniker": "ListaDesviosPage.xaml",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\ListaDesviosPage.xaml",
+              "RelativeToolTip": "ListaDesviosPage.xaml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAwEAAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-19T18:30:49.52Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ListaDesviosPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\ListaDesviosPage.xaml.cs",
+              "RelativeDocumentMoniker": "ListaDesviosPage.xaml.cs",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\ListaDesviosPage.xaml.cs",
+              "RelativeToolTip": "ListaDesviosPage.xaml.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAQwJUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-19T18:33:23.915Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-20T15:50:19.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Desvio.cs",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Desvio.cs",
+              "RelativeDocumentMoniker": "Desvio.cs",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Desvio.cs",
+              "RelativeToolTip": "Desvio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-19T18:07:05.563Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AndroidManifest.xml",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Platforms\\Android\\AndroidManifest.xml",
+              "RelativeDocumentMoniker": "Platforms\\Android\\AndroidManifest.xml",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Platforms\\Android\\AndroidManifest.xml",
+              "RelativeToolTip": "Platforms\\Android\\AndroidManifest.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-03-20T13:06:51.699Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainApplication.cs",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Platforms\\Android\\MainApplication.cs",
+              "RelativeDocumentMoniker": "Platforms\\Android\\MainApplication.cs",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Platforms\\Android\\MainApplication.cs",
+              "RelativeToolTip": "Platforms\\Android\\MainApplication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-20T13:42:21.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Circulacion-Barracas.csproj",
+              "DocumentMoniker": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Circulacion-Barracas.csproj",
+              "RelativeDocumentMoniker": "Circulacion-Barracas.csproj",
+              "ToolTip": "C:\\Users\\JLOLIVETO\\Downloads\\APP MUNRO\\Circulacion-Barracas\\Circulacion-Barracas.csproj",
+              "RelativeToolTip": "Circulacion-Barracas.csproj",
+              "ViewState": "AgIAABwAAAAAAAAAAIBJwDQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-20T14:02:38.424Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
