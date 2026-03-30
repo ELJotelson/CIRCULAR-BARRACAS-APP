@@ -2,71 +2,80 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Circulacion_Barracas.MainPage"
-             Title="Nuevo Desvío"
-             BackgroundColor="#E8F5E9">
+             Title="Carga de Desvío">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="12">
+        <VerticalStackLayout Padding="15" Spacing="10">
 
-            <Label Text="Carga de Desvíos"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="DarkGreen"
-                   HorizontalOptions="Center" />
-
+            <!-- INSPECTOR -->
+            <Label Text="Inspector"
+                   FontAttributes="Bold"/>
             <Picker x:Name="InspectorPicker"
-                    Title="Seleccionar inspector" />
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#2A2A2A}"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}" />
 
-            <Label Text="Empleado"
-                   FontAttributes="Bold"
-                   TextColor="DarkGreen" />
-
+            <!-- BUSCAR EMPLEADO -->
+            <Label Text="Buscar Empleado"
+                   FontAttributes="Bold"/>
             <SearchBar x:Name="EmpleadoSearchBar"
-                       Placeholder="Buscar por legajo o nombre"
-                       TextChanged="OnEmpleadoSearchTextChanged" />
+                       Placeholder="Escribí para filtrar..."
+                       TextChanged="OnEmpleadoSearchTextChanged"
+                       BackgroundColor="{AppThemeBinding Light=White, Dark=#2A2A2A}"
+                       TextColor="{AppThemeBinding Light=Black, Dark=White}" />
 
+            <!-- EMPLEADO -->
+            <Label Text="Empleado"
+                   FontAttributes="Bold"/>
             <Picker x:Name="EmpleadoPicker"
-                    Title="Seleccionar empleado" />
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#2A2A2A}"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}" />
 
+            <!-- LUGAR -->
+            <Label Text="Lugar"
+                   FontAttributes="Bold"/>
             <Picker x:Name="LugarPicker"
-                    Title="Seleccionar lugar" />
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#2A2A2A}"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}" />
 
+            <!-- TIPO DESVIO -->
+            <Label Text="Tipo de Desvío"
+                   FontAttributes="Bold"/>
             <Picker x:Name="DesvioPicker"
-                    Title="Tipo de desvío">
-                <Picker.Items>
-                    <x:String>Leve</x:String>
-                    <x:String>Moderado</x:String>
-                    <x:String>Grave</x:String>
-                </Picker.Items>
-            </Picker>
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#2A2A2A}"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}" />
 
+            <!-- OBSERVACIONES -->
+            <Label Text="Observaciones"
+                   FontAttributes="Bold"/>
             <Editor x:Name="ObservacionesEditor"
-                    Placeholder="Observaciones"
-                    AutoSize="TextChanges"
-                    HeightRequest="120" />
+                    HeightRequest="100"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#2A2A2A}"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+
+            <!-- FOTO -->
+            <Button Text="Tomar Foto"
+                    Clicked="OnTomarFotoClicked"
+                    BackgroundColor="DodgerBlue"
+                    TextColor="White" />
 
             <Image x:Name="FotoPreview"
-                   HeightRequest="180"
-                   WidthRequest="220"
-                   Aspect="AspectFill"
-                   HorizontalOptions="Center"
-                   IsVisible="False" />
+                   HeightRequest="200"
+                   IsVisible="False"
+                   Aspect="AspectFit" />
 
-            <Button Text="Sacar Foto"
-                    BackgroundColor="#43A047"
-                    TextColor="White"
-                    Clicked="OnTomarFotoClicked" />
-
+            <!-- BOTÓN GUARDAR -->
             <Button Text="Guardar"
+                    Clicked="OnGuardarClicked"
                     BackgroundColor="Green"
-                    TextColor="White"
-                    Clicked="OnGuardarClicked" />
+                    TextColor="White" />
 
-            <Button Text="Ver Desvíos"
-                    BackgroundColor="#2E7D32"
-                    TextColor="White"
-                    Clicked="OnVerListaClicked" />
+            <!-- BOTÓN VER LISTA -->
+            <Button Text="Ver Lista de Desvíos"
+                    Clicked="OnVerListaClicked"
+                    BackgroundColor="Gray"
+                    TextColor="White" />
 
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

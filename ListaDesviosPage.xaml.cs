@@ -7,6 +7,7 @@ namespace Circulacion_Barracas;
 public partial class ListaDesviosPage : ContentPage
 {
     private readonly DatabaseService db;
+    private readonly SupabaseService supabase;
     private readonly ObservableCollection<Desvio> lista = new();
 
     public ListaDesviosPage()
@@ -15,20 +16,20 @@ public partial class ListaDesviosPage : ContentPage
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "desvios.db3");
         db = new DatabaseService(dbPath);
+        supabase = new SupabaseService();
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        CargarEmpleados();
-        CargarDesvios();
+        await CargarDesdeNubeAsync();
     }
 
-    private void CargarDesvios(string? empleadoFiltro = null)
+    private async Task CargarDesdeNubeAsync(string? empleadoFiltro = null)
     {
         lista.Clear();
 
-        var desvios = db.ObtenerDesvios();
+        var desvios = await supabase.ObtenerDesviosAsync();
 
         if (!string.IsNullOrWhiteSpace(empleadoFiltro) && empleadoFiltro != "Todos")
         {
@@ -38,113 +39,95 @@ public partial class ListaDesviosPage : ContentPage
         }
 
         foreach (var d in desvios)
-        {
             lista.Add(d);
-        }
 
         ListaDesvios.ItemsSource = lista;
-    }
 
-    private void CargarEmpleados()
-    {
-        var empleados = db.ObtenerDesvios()
-                          .Select(d => d.Empleado)
-                          .Where(e => !string.IsNullOrWhiteSpace(e))
-                          .Distinct()
-                          .OrderBy(e => e)
-                          .ToList();
+        var empleados = desvios
+            .Select(d => d.Empleado)
+            .Where(e => !string.IsNullOrWhiteSpace(e))
+            .Distinct()
+            .OrderBy(e => e)
+            .ToList();
 
         empleados.Insert(0, "Todos");
 
         EmpleadoPicker.ItemsSource = empleados;
-        EmpleadoPicker.SelectedIndex = 0;
+
+        if (EmpleadoPicker.SelectedIndex < 0)
+            EmpleadoPicker.SelectedIndex = 0;
     }
 
-    private void OnEmpleadoFiltroChanged(object sender, EventArgs e)
+    private async void OnEmpleadoFiltroChanged(object sender, EventArgs e)
     {
         var seleccionado = EmpleadoPicker.SelectedItem?.ToString();
 
         if (string.IsNullOrWhiteSpace(seleccionado) || seleccionado == "Todos")
-            CargarDesvios();
+            await CargarDesdeNubeAsync();
         else
-            CargarDesvios(seleccionado);
+            await CargarDesdeNubeAsync(seleccionado);
     }
 
     private async void OnEliminarSwipe(object sender, EventArgs e)
     {
-        if (sender is not SwipeItem swipeItem)
+        await DisplayAlert("Info", "Por ahora el borrado sigue solo local. Después lo conectamos a Supabase.", "OK");
+    }
+
+    private async void OnImageTapped(object sender, TappedEventArgs e)
+    {
+        if (sender is not Image image)
             return;
 
-        if (swipeItem.BindingContext is not Desvio desvio)
+        if (image.BindingContext is not Desvio desvio)
             return;
 
-        bool confirmar = await DisplayAlert(
-            "Confirmar",
-            $"¿Eliminar el desvío de {desvio.Empleado}?",
-            "Sí",
-            "No");
-
-        if (!confirmar)
-            return;
-
-        bool eliminado = db.EliminarDesvio(desvio.Id);
-
-        if (eliminado)
+        if (string.IsNullOrWhiteSpace(desvio.FotoPath))
         {
-            lista.Remove(desvio);
-            await DisplayAlert("OK", "Desvío eliminado correctamente", "OK");
+            await DisplayAlert("Imagen", "No se encontró la imagen.", "OK");
+            return;
         }
-        else
-        {
-            await DisplayAlert("Error", $"No se pudo borrar el desvío con ID {desvio.Id}", "OK");
-        }
+
+        await Navigation.PushModalAsync(new ImageViewerPage(desvio.FotoPath));
     }
 
     private async void OnExportarExcelClicked(object sender, EventArgs e)
     {
         try
         {
-            var desvios = db.ObtenerDesvios();
-
             using var workbook = new XLWorkbook();
-            var ws = workbook.Worksheets.Add("Desvios");
+            var worksheet = workbook.Worksheets.Add("Desvios");
 
-            ws.Cell(1, 1).Value = "Inspector";
-            ws.Cell(1, 2).Value = "Empleado";
-            ws.Cell(1, 3).Value = "Lugar";
-            ws.Cell(1, 4).Value = "Tipo de Desvío";
-            ws.Cell(1, 5).Value = "Observaciones";
-            ws.Cell(1, 6).Value = "Fecha";
+            worksheet.Cell(1, 1).Value = "Fecha";
+            worksheet.Cell(1, 2).Value = "Inspector";
+            worksheet.Cell(1, 3).Value = "Empleado";
+            worksheet.Cell(1, 4).Value = "Lugar";
+            worksheet.Cell(1, 5).Value = "Tipo de Desvío";
+            worksheet.Cell(1, 6).Value = "Observaciones";
+            worksheet.Cell(1, 7).Value = "Foto URL";
 
-            int fila = 2;
-
-            foreach (var d in desvios)
+            for (int i = 0; i < lista.Count; i++)
             {
-                ws.Cell(fila, 1).Value = d.Inspector;
-                ws.Cell(fila, 2).Value = d.Empleado;
-                ws.Cell(fila, 3).Value = d.Lugar;
-                ws.Cell(fila, 4).Value = d.TipoDesvio;
-                ws.Cell(fila, 5).Value = d.Observaciones;
-                ws.Cell(fila, 6).Value = d.Fecha.ToString("dd/MM/yyyy HH:mm");
-                fila++;
+                worksheet.Cell(i + 2, 1).Value = lista[i].Fecha.ToString("dd/MM/yyyy HH:mm");
+                worksheet.Cell(i + 2, 2).Value = lista[i].Inspector;
+                worksheet.Cell(i + 2, 3).Value = lista[i].Empleado;
+                worksheet.Cell(i + 2, 4).Value = lista[i].Lugar;
+                worksheet.Cell(i + 2, 5).Value = lista[i].TipoDesvio;
+                worksheet.Cell(i + 2, 6).Value = lista[i].Observaciones;
+                worksheet.Cell(i + 2, 7).Value = lista[i].FotoPath;
             }
 
-            ws.Columns().AdjustToContents();
+            string filePath = Path.Combine(FileSystem.CacheDirectory, "Desvios.xlsx");
+            workbook.SaveAs(filePath);
 
-            string fileName = $"Desvios_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
-            string path = Path.Combine(FileSystem.CacheDirectory, fileName);
-
-            workbook.SaveAs(path);
-
-            await Share.RequestAsync(new ShareFileRequest
+            await Share.Default.RequestAsync(new ShareFileRequest
             {
-                Title = "Exportar Desvíos",
-                File = new ShareFile(path)
+                Title = "Compartir Excel",
+                File = new ShareFile(filePath)
             });
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert("Error", $"No se pudo exportar a Excel: {ex.Message}", "OK");
         }
     }
 }

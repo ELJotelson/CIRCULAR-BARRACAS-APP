@@ -30,6 +30,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = Circulacion_Barracas.AppSh
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
+[C:/Users/JLOLIVETO/Downloads/APP MUNRO/Circulacion-Barracas/ImageViewerPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Circulacion_Barracas.ImageViewerPage.xaml
+build_metadata.AdditionalFiles.TargetPath = ImageViewerPage.xaml
+build_metadata.AdditionalFiles.RelativePath = ImageViewerPage.xaml
+
 [C:/Users/JLOLIVETO/Downloads/APP MUNRO/Circulacion-Barracas/ListaDesviosPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Circulacion_Barracas.ListaDesviosPage.xaml

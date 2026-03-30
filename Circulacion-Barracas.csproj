@@ -13,10 +13,11 @@
 
 		<ApplicationTitle>Circulacion-Barracas</ApplicationTitle>
 		<ApplicationId>com.companyname.circulacionbarracas</ApplicationId>
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+		<ApplicationVersion>2</ApplicationVersion>
 
 		<WindowsPackageType>None</WindowsPackageType>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -45,6 +46,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="ImageViewerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="ListaDesviosPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

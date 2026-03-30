@@ -1,41 +1,89 @@
 ﻿using Microsoft.Maui.Media;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Json;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Circulacion_Barracas;
 
 public partial class MainPage : ContentPage
 {
-    private readonly HttpClient httpClient = new();
+    private readonly DatabaseService db;
+    private readonly SupabaseService supabase;
+    private readonly UpdateService updateService;
     private string fotoPath = string.Empty;
-
-    // CAMBIÁ ESTA IP Y ESTE PUERTO POR LOS DE TU API
-    private const string ApiUrl = "http://192.168.3.162:7037/api/Desvios";
-
     private List<string> todosLosEmpleados = new();
     private List<string> empleadosFiltrados = new();
 
     public MainPage()
     {
         InitializeComponent();
+
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "desvios.db3");
+        db = new DatabaseService(dbPath);
+        supabase = new SupabaseService();
+        updateService = new UpdateService();
+
         CargarOpciones();
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await CheckForUpdatesAsync();
+    }
+
+    private async Task CheckForUpdatesAsync()
+    {
+        try
+        {
+            var latestInfo = await updateService.GetLatestVersionAsync();
+
+            if (latestInfo == null || string.IsNullOrWhiteSpace(latestInfo.Version))
+                return;
+
+            string currentVersion = AppInfo.Current.VersionString;
+
+            bool updateAvailable = updateService.IsUpdateAvailable(currentVersion, latestInfo.Version);
+
+            if (!updateAvailable)
+                return;
+
+            bool actualizar = await DisplayAlert(
+                "Actualización disponible",
+                $"Tenés la versión {currentVersion} y hay una nueva versión {latestInfo.Version}.",
+                "Actualizar",
+                "Después");
+
+            if (actualizar && !string.IsNullOrWhiteSpace(latestInfo.Url))
+            {
+                await Launcher.Default.OpenAsync(latestInfo.Url);
+            }
+        }
+        catch
+        {
+            // Si falla internet o la consulta, no hace nada
+        }
     }
 
     private void CargarOpciones()
     {
         InspectorPicker.ItemsSource = new List<string>
         {
-            "Inspector 1",
-            "Inspector 2",
-            "Inspector 3"
+            "SEGURIDAD PATRIMONIAL",
+            "LEANDRO DEL VECCHIO",
+            "NICOLAS BASUALDO",
+            "MAURO FONTAN",
+            "MAURICIO VAZQUEZ",
+            "OTRO"
         };
 
         LugarPicker.ItemsSource = new List<string>
         {
-            "Barracas",
-            "Constitución",
-            "Avellaneda"
+            "DEPOSITO",
+            "PLAYA CARGA/DESCARGA",
+            "OFICINAS ADM",
+            "COMEDOR",
+            "OTRO"
         };
 
         todosLosEmpleados = new List<string>
@@ -46,103 +94,53 @@ public partial class MainPage : ContentPage
             "209 - CASTRO CARLOS FERNANDO",
             "215 - MARTINEZ CARDOZO ROBERTO GUSTAVO",
             "217 - HERRERA FELIX LEONICIO",
-            "226 - SAMANIEGO JUSTINO CIPRIANO",
-            "233 - PANIAGUA CACERES ERNESTO ISRAEL",
-            "234 - BARRIENTOS RENE ARGENTINO",
-            "238 - MENDEZ MARCELO GUSTAVO",
-            "240 - CAMPERO HERNAN ALEJANDRO",
-            "241 - BOHL FERNANDO ANDRES",
-            "242 - LOPEZ CARLOS CLEMENTE",
-            "245 - MELIAN DIEGO MAXIMILIANO",
-            "248 - SPARACINO PABLO DANIEL",
-            "250 - MARTINEZ LORENA ELISA",
-            "253 - PAVON LUCILA JAZMIN",
-            "255 - RAMERO BELEN GABRIELA",
-            "257 - SURBANDO ARIEL IGNACIO",
-            "258 - MASTROIANNI MARCO ANTONIO",
-            "259 - SENES CRISTIAN ADRIEL",
-            "262 - FERNANDEZ DANIEL ANTONIO",
-            "263 - LATTANZI DIEGO OMAR",
-            "265 - PALAVECINO EDWIN EZEQUIEL",
-            "304 - BORDON SERGIO CESAR",
-            "307 - GALVAN MARIO GABRIEL",
-            "309 - GUTIERREZ ALFREDO HORACIO",
-            "312 - LUQUE RAMON ROGELIO",
-            "313 - MARCELLO FERNANDO HORACIO",
-            "317 - SANDRIGO ALBERTO",
-            "318 - SANDRIGO DIEGO SEBASTIAN",
-            "321 - FERREYRA JORGE ALEJANDRO",
-            "322 - CREGO CREGO GUSTAVO",
-            "327 - DELGADO JORGE OMAR",
-            "328 - FERNANDEZ DANIEL ABEL",
-            "329 - GUTIERREZ RUBEN",
-            "330 - MARTINEZ EZEQUIEL MAXIMILIANO",
-            "332 - SAAVEDRA HUGO OSVALDO",
-            "333 - PIÑEYRO SILVESTRE",
-            "335 - MILLA JORGE LEANDRO",
-            "337 - ACOSTA CARLOS EDUARDO",
-            "339 - ZARACHO ROBERTO",
-            "342 - LEDESMA CRISTIAN DAMIAN",
-            "345 - ACUÑA ALBERTO",
-            "346 - AYBAR SEBASTIAN",
-            "348 - CERDAN GASTON",
-            "349 - COLOMBO MAXIMILIANO EZEQUIEL",
-            "350 - DOMINGUEZ CESAR",
-            "354 - CEJAS SEBASTIAN",
-            "355 - CISNEROS MIGUEL ANGEL",
-            "356 - GAZANO RAFAEL",
-            "358 - PARED RAMON FERNANDO",
-            "359 - PELOZO MARIANO RODRIGO",
-            "360 - PERALTA MARCOS DANIEL",
-            "361 - SANCHEZ RENE ORLANDO",
-            "366 - GOMEZ ALBERTO",
-            "370 - PIRILLO JOSE",
-            "371 - VALDEZ DIEGO",
-            "373 - VARGAS EDUARDO",
-            "375 - MENCHACA JORGE DANIEL",
-            "378 - CASTAÑO DANIEL AGUSTIN",
-            "381 - FERNANDEZ OSCAR ALBERTO",
-            "382 - GILES FERNANDO",
-            "383 - MARTINEZ NICOLAS",
-            "384 - MEDINA MEDINA DIEGO",
-            "466 - CEJAS EZEQUIEL",
-            "467 - COLOMBO MATIAS SEBASTIAN",
-            "468 - FERNANDEZ JAVIER REINALDO",
-            "469 - GALLARDO JUAN GABRIEL",
-            "472 - OLIBA JUAN MANUEL",
-            "473 - PIRILLO CLAUDIO LEANDRO",
-            "474 - POGONZA JORGE DAMIAN",
-            "475 - ROSALES FABIAN",
-            "476 - SABATTINO ESTEBAN",
-            "477 - RAMIREZ RUBEN DARIO",
-            "478 - QUINTANA JUAN ALBERTO",
-            "480 - LUNA OSCAR",
-            "481 - PEÑALOZA DARIO",
-            "482 - MORENO POBLETE RAFAEL",
-            "483 - IBARRA ALEJANDRO",
-            "484 - MOLINA EXEQUIEL ANDRES",
-            "485 - GILES DAMIAN MATIAS",
-            "486 - CERDAN MATIAS NICOLAS",
-            "487 - GOMEZ JORGE RICARDO",
-            "488 - BAEZ ALEXIS EZEQUIEL",
-            "489 - FERNANDEZ CARLOS",
-            "490 - ALBOR ALBOR HERNAN",
-            "492 - CORONEL DAVID RODRIGO",
-            "493 - MANSILLA RAMON",
-            "494 - GALVAN LUIS ALBERTO",
-            "495 - PEREYRA GUILLERMO WALTER",
-            "496 - PEÑALOZA SERGIO LEONEL",
-            "497 - BRUMAT ISMAEL",
-            "498 - SUAREZ SUAREZ MATIAS",
-            "499 - GUARASCI MARCELO FABIAN",
-            "500 - BENITEZ HUGO MARCIAL",
-            "501 - FARIAS CLAUDIO ALEJANDRO",
-            "502 - HERNANDEZ LUIS ALBERTO",
-            "503 - PANOSSIAN ESTEBAN HERNAN",
-            "504 - SALAZAR SEBASTIAN DARIO",
-            "505 - GAZCON ARIEL EZEQUIEL",
-            "506 - RODRIGUEZ DIEGO JAVIER",
-            "507 - VARGAS GONZALO NICOLAS"
+            "226 - LOPEZ PABLO JOSE",
+            "229 - VALLEJO SANDOVAL JOSE MARTIN",
+            "231 - PALACIOS IVAN",
+            "233 - SORIA CARLOS GUSTAVO",
+            "234 - GONZALEZ JUAN CRUZ",
+            "235 - RODRIGUEZ JUAN JOSE",
+            "236 - MAZA ENRIQUE DANIEL",
+            "240 - MORALES JUAN CARLOS",
+            "241 - MARTINEZ GASTON EZEQUIEL",
+            "242 - FERNANDEZ JORGE ALBERTO",
+            "243 - PERALTA JOSE LUIS",
+            "245 - GARCIA JAVIER ALEJANDRO",
+            "246 - SANTILLAN ROBERTO",
+            "247 - RUIZ DIAZ MIGUEL ANGEL",
+            "248 - GOMEZ CLAUDIO DANIEL",
+            "249 - FLORES RUBEN DARIO",
+            "250 - GONZALEZ RICARDO DANIEL",
+            "251 - SOSA HECTOR ALBERTO",
+            "252 - BARRIONUEVO ARIEL ALEJANDRO",
+            "253 - NUÑEZ SERGIO DANIEL",
+            "254 - PEREZ CRISTIAN DAVID",
+            "255 - ACOSTA LUIS ALBERTO",
+            "256 - BENITEZ CESAR ALBERTO",
+            "257 - CABRERA MARIO ALBERTO",
+            "258 - CORONEL JORGE OMAR",
+            "259 - DIAZ HUGO ARIEL",
+            "260 - ESCOBAR DARIO FABIAN",
+            "261 - FARIAS JORGE DANIEL",
+            "262 - GIMENEZ LUIS ALBERTO",
+            "263 - HERRERA RUBEN DARIO",
+            "264 - IBARRA CARLOS DANIEL",
+            "265 - JUAREZ FABIAN ALBERTO",
+            "266 - KRAMER MARCELO GUSTAVO",
+            "267 - LEDESMA PABLO ANDRES",
+            "268 - MEDINA MIGUEL ANGEL",
+            "269 - NAVARRO DIEGO MARTIN",
+            "270 - OJEDA SERGIO DANIEL",
+            "271 - PONCE CLAUDIO FABIAN",
+            "272 - QUIROGA WALTER DAVID",
+            "273 - RAMIREZ EDUARDO DANIEL",
+            "274 - SALAZAR HUGO ALBERTO",
+            "275 - TORRES GABRIEL ALEJANDRO",
+            "276 - URQUIZA CRISTIAN DAVID",
+            "277 - VERA MIGUEL ANGEL",
+            "278 - WALTER JOSE LUIS",
+            "279 - XXXXXX EMPLEADO",
+            "280 - YYYYYY EMPLEADO"
         };
 
         empleadosFiltrados = new List<string>(todosLosEmpleados);
@@ -151,47 +149,43 @@ public partial class MainPage : ContentPage
 
     private void OnEmpleadoSearchTextChanged(object sender, TextChangedEventArgs e)
     {
-        string texto = e.NewTextValue?.Trim() ?? string.Empty;
+        string texto = e.NewTextValue?.Trim().ToLower() ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(texto))
-            empleadosFiltrados = new List<string>(todosLosEmpleados);
-        else
-            empleadosFiltrados = todosLosEmpleados
-                .Where(x => x.Contains(texto, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+        empleadosFiltrados = todosLosEmpleados
+            .Where(x => x.ToLower().Contains(texto))
+            .ToList();
 
         EmpleadoPicker.ItemsSource = null;
         EmpleadoPicker.ItemsSource = empleadosFiltrados;
-
-        if (empleadosFiltrados.Count > 0)
-            EmpleadoPicker.SelectedIndex = 0;
     }
 
     private async void OnTomarFotoClicked(object sender, EventArgs e)
     {
         try
         {
-            if (!MediaPicker.Default.IsCaptureSupported)
+            if (MediaPicker.Default.IsCaptureSupported)
             {
-                await DisplayAlert("Error", "La cámara no está disponible en este dispositivo.", "OK");
-                return;
+                var foto = await MediaPicker.Default.CapturePhotoAsync();
+
+                if (foto != null)
+                {
+                    var nuevoNombre = $"{Guid.NewGuid()}.jpg";
+                    var destino = Path.Combine(FileSystem.AppDataDirectory, nuevoNombre);
+
+                    using var streamOrigen = await foto.OpenReadAsync();
+                    using var streamDestino = File.OpenWrite(destino);
+                    await streamOrigen.CopyToAsync(streamDestino);
+
+                    fotoPath = destino;
+
+                    FotoPreview.Source = ImageSource.FromFile(destino);
+                    FotoPreview.IsVisible = true;
+                }
             }
-
-            var foto = await MediaPicker.Default.CapturePhotoAsync();
-
-            if (foto == null)
-                return;
-
-            string nombreArchivo = $"{DateTime.Now:yyyyMMddHHmmss}.jpg";
-            string destino = Path.Combine(FileSystem.AppDataDirectory, nombreArchivo);
-
-            using var sourceStream = await foto.OpenReadAsync();
-            using var fileStream = File.OpenWrite(destino);
-            await sourceStream.CopyToAsync(fileStream);
-
-            fotoPath = destino;
-            FotoPreview.Source = ImageSource.FromFile(destino);
-            FotoPreview.IsVisible = true;
+            else
+            {
+                await DisplayAlert("Error", "La cámara no está disponible.", "OK");
+            }
         }
         catch (Exception ex)
         {
@@ -214,16 +208,14 @@ public partial class MainPage : ContentPage
                 Fecha = DateTime.Now
             };
 
-            var response = await httpClient.PostAsJsonAsync(ApiUrl, desvio);
+            db.GuardarDesvio(desvio);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var error = await response.Content.ReadAsStringAsync();
-                await DisplayAlert("Error", $"No se pudo guardar en la API.\n{error}", "OK");
-                return;
-            }
+            bool guardadoNube = await supabase.GuardarDesvioAsync(desvio);
 
-            await DisplayAlert("OK", "Desvío guardado en la base central", "OK");
+            if (guardadoNube)
+                await DisplayAlert("OK", "Desvío guardado local y en la nube", "OK");
+            else
+                await DisplayAlert("Atención", "Se guardó local, pero no en la nube", "OK");
 
             InspectorPicker.SelectedIndex = -1;
             EmpleadoPicker.SelectedIndex = -1;

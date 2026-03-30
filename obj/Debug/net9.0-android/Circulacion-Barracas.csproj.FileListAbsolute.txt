@@ -132,6 +132,7 @@ C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-and
 C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\Circulacion-Barracas.AssemblyInfoInputs.cache
 C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\Circulacion-Barracas.AssemblyInfo.cs
 C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\Circulacion-Barracas.csproj.CoreCompileInputs.cache
+C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\Circulacion-Barracas.sourcelink.json
 C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\XamlC.stamp
 C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\Circulac.0872F6EB.Up2Date
 C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\obj\Debug\net9.0-android\Circulacion-Barracas.dll
