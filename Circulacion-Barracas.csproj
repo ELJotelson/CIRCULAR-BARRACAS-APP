@@ -13,8 +13,8 @@
 
 		<ApplicationTitle>Desvíos en Plantas</ApplicationTitle>
 		<ApplicationId>com.companyname.circulacionbarracas</ApplicationId>
-		<ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
-		<ApplicationVersion>3</ApplicationVersion>
+		<ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
+		<ApplicationVersion>4</ApplicationVersion>
 
 		<WindowsPackageType>None</WindowsPackageType>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -27,6 +27,15 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
 		<AndroidManifestMerger>manifestmerger.jar</AndroidManifestMerger>
+	</PropertyGroup>
+
+	<!-- El linker de Android recorta código en Release y eso rompe la deserialización JSON
+	     por reflexión que usa el SDK de Supabase (perfiles/catálogos volvían vacíos o la app
+	     se cerraba). Se desactiva para esta plataforma; el resto sigue optimizado normal. -->
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<AndroidLinkMode>None</AndroidLinkMode>
+		<PublishTrimmed>false</PublishTrimmed>
+		<RunAOTCompilation>false</RunAOTCompilation>
 	</PropertyGroup>
 
 	<ItemGroup>

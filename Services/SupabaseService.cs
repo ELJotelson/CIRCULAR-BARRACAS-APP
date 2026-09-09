@@ -134,22 +134,36 @@ public class SupabaseService
 
     public async Task<List<Empleado>> ObtenerEmpleadosActivosAsync(Guid operacionId)
     {
-        var response = await Client.From<Empleado>()
-            .Where(x => x.OperacionId == operacionId && x.Activo == true)
-            .Order(x => x.Nombre, Constants.Ordering.Ascending)
-            .Get();
+        try
+        {
+            var response = await Client.From<Empleado>()
+                .Where(x => x.OperacionId == operacionId && x.Activo == true)
+                .Order(x => x.Nombre, Constants.Ordering.Ascending)
+                .Get();
 
-        return response.Models;
+            return response.Models;
+        }
+        catch
+        {
+            return new List<Empleado>();
+        }
     }
 
     public async Task<List<Empleado>> ObtenerEmpleadosAsync(Guid operacionId)
     {
-        var response = await Client.From<Empleado>()
-            .Where(x => x.OperacionId == operacionId)
-            .Order(x => x.Nombre, Constants.Ordering.Ascending)
-            .Get();
+        try
+        {
+            var response = await Client.From<Empleado>()
+                .Where(x => x.OperacionId == operacionId)
+                .Order(x => x.Nombre, Constants.Ordering.Ascending)
+                .Get();
 
-        return response.Models;
+            return response.Models;
+        }
+        catch
+        {
+            return new List<Empleado>();
+        }
     }
 
     public async Task<int> ImportarNominaAsync(List<Empleado> empleados)
@@ -175,12 +189,19 @@ public class SupabaseService
 
     public async Task<List<Operacion>> ObtenerOperacionesActivasAsync()
     {
-        var response = await Client.From<Operacion>()
-            .Where(x => x.Activo == true)
-            .Order(x => x.Nombre, Constants.Ordering.Ascending)
-            .Get();
+        try
+        {
+            var response = await Client.From<Operacion>()
+                .Where(x => x.Activo == true)
+                .Order(x => x.Nombre, Constants.Ordering.Ascending)
+                .Get();
 
-        return response.Models;
+            return response.Models;
+        }
+        catch
+        {
+            return new List<Operacion>();
+        }
     }
 
     public async Task<bool> CrearOperacionAsync(string nombre)
@@ -198,12 +219,19 @@ public class SupabaseService
 
     public async Task<List<Lugar>> ObtenerLugaresActivosAsync(Guid operacionId)
     {
-        var response = await Client.From<Lugar>()
-            .Where(x => x.OperacionId == operacionId && x.Activo == true)
-            .Order(x => x.Nombre, Constants.Ordering.Ascending)
-            .Get();
+        try
+        {
+            var response = await Client.From<Lugar>()
+                .Where(x => x.OperacionId == operacionId && x.Activo == true)
+                .Order(x => x.Nombre, Constants.Ordering.Ascending)
+                .Get();
 
-        return response.Models;
+            return response.Models;
+        }
+        catch
+        {
+            return new List<Lugar>();
+        }
     }
 
     public async Task<bool> AgregarLugarAsync(Guid operacionId, string nombre)
@@ -235,12 +263,19 @@ public class SupabaseService
 
     public async Task<List<TipoDesvio>> ObtenerTiposDesvioActivosAsync(Guid operacionId)
     {
-        var response = await Client.From<TipoDesvio>()
-            .Where(x => x.OperacionId == operacionId && x.Activo == true)
-            .Order(x => x.Nombre, Constants.Ordering.Ascending)
-            .Get();
+        try
+        {
+            var response = await Client.From<TipoDesvio>()
+                .Where(x => x.OperacionId == operacionId && x.Activo == true)
+                .Order(x => x.Nombre, Constants.Ordering.Ascending)
+                .Get();
 
-        return response.Models;
+            return response.Models;
+        }
+        catch
+        {
+            return new List<TipoDesvio>();
+        }
     }
 
     public async Task<bool> AgregarTipoDesvioAsync(Guid operacionId, string nombre)
@@ -272,11 +307,18 @@ public class SupabaseService
 
     public async Task<List<Profile>> ObtenerPerfilesAsync()
     {
-        var response = await Client.From<Profile>()
-            .Order(x => x.NombreCompleto, Constants.Ordering.Ascending)
-            .Get();
+        try
+        {
+            var response = await Client.From<Profile>()
+                .Order(x => x.NombreCompleto, Constants.Ordering.Ascending)
+                .Get();
 
-        return response.Models;
+            return response.Models;
+        }
+        catch
+        {
+            return new List<Profile>();
+        }
     }
 
     public async Task<bool> CambiarRolAsync(Profile perfil, string nuevoRol)
