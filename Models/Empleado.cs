@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
@@ -27,5 +28,6 @@ public class Empleado : BaseModel
     [Column("updated_at")]
     public DateTime UpdatedAt { get; set; }
 
+    [JsonIgnore]
     public string DisplayName => $"{Legajo} - {Nombre}";
 }
