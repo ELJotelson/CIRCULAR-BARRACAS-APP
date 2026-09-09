@@ -29,9 +29,32 @@ public partial class OperacionPage : ContentPage
 
     private async Task CargarAsync()
     {
+        VacioContainer.IsVisible = false;
+        ListaOperaciones.IsVisible = true;
+        CargandoIndicator.IsVisible = true;
+        CargandoIndicator.IsRunning = true;
+
         await operacionService.CargarAsync();
+
+        // Justo después de loguearse/registrarse la sesión puede tardar un instante en
+        // quedar del todo lista; si la primera pasada vino vacía, se reintenta una vez.
+        if (operacionService.Disponibles.Count == 0)
+        {
+            await Task.Delay(800);
+            await operacionService.CargarAsync();
+        }
+
+        CargandoIndicator.IsVisible = false;
+        CargandoIndicator.IsRunning = false;
+
         ListaOperaciones.ItemsSource = operacionService.Disponibles;
+
+        bool vacio = operacionService.Disponibles.Count == 0;
+        ListaOperaciones.IsVisible = !vacio;
+        VacioContainer.IsVisible = vacio;
     }
+
+    private async void OnReintentarClicked(object sender, EventArgs e) => await CargarAsync();
 
     private void OnOperacionTapped(object sender, EventArgs e)
     {

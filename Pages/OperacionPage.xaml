@@ -10,6 +10,8 @@
             <Label Text="¿En qué operación estás trabajando?" Style="{StaticResource SectionTitle}" FontSize="20" />
             <Label Text="Los desvíos, la nómina y los catálogos que vas a ver dependen de esto." Style="{StaticResource SubHeadline}" Margin="0,0,0,6" />
 
+            <ActivityIndicator x:Name="CargandoIndicator" IsRunning="False" IsVisible="False" />
+
             <CollectionView x:Name="ListaOperaciones" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -22,6 +24,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <VerticalStackLayout x:Name="VacioContainer" Spacing="10" IsVisible="False">
+                <Label Text="No se pudo cargar la lista de operaciones. Puede ser un problema de conexión momentáneo." Style="{StaticResource FieldLabel}" />
+                <Button Text="Reintentar" Style="{StaticResource SecondaryButton}" Clicked="OnReintentarClicked" />
+            </VerticalStackLayout>
 
             <Border x:Name="NuevaOperacionCard" Style="{StaticResource CardBorder}" IsVisible="False">
                 <VerticalStackLayout Spacing="10">
