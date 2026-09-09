@@ -11,10 +11,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<ApplicationTitle>Circulacion-Barracas</ApplicationTitle>
+		<ApplicationTitle>Desvíos en Plantas</ApplicationTitle>
 		<ApplicationId>com.companyname.circulacionbarracas</ApplicationId>
-		<ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
-		<ApplicationVersion>2</ApplicationVersion>
+		<ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+		<ApplicationVersion>3</ApplicationVersion>
 
 		<WindowsPackageType>None</WindowsPackageType>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -43,13 +43,26 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Supabase" Version="8.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="ImageViewerPage.xaml">
+		<MauiXaml Update="Pages\ImageViewerPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="ListaDesviosPage.xaml">
+		<MauiXaml Update="Pages\ListaDesviosPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Pages\NuevoDesvioPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Pages\LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Pages\NominaPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Pages\AlertasPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>

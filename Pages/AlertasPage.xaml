@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.AlertasPage"
+             Title="Alertas">
+
+    <Grid RowDefinitions="Auto,*" Padding="16" MaximumWidthRequest="720" HorizontalOptions="Center">
+
+        <Label Grid.Row="0"
+               Text="Últimos desvíos cargados por el equipo. Se actualiza solo, sin necesidad de refrescar."
+               Style="{StaticResource SubHeadline}"
+               Margin="0,0,0,12" />
+
+        <CollectionView Grid.Row="1" x:Name="ListaAlertas">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding Empleado}" Style="{StaticResource SectionTitle}" FontSize="15" />
+                            <Label Text="{Binding TipoDesvio}" TextColor="{StaticResource Accent}" FontAttributes="Bold" FontSize="13" />
+                            <Label Text="{Binding Lugar, StringFormat='Lugar: {0}'}" Style="{StaticResource FieldLabel}" />
+                            <Label Text="{Binding Inspector, StringFormat='Cargado por: {0}'}" Style="{StaticResource FieldLabel}" />
+                            <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource FieldLabel}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

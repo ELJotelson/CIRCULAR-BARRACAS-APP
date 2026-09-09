@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.UsuariosPage"
+             Title="Usuarios">
+
+    <Grid Padding="16" MaximumWidthRequest="640" HorizontalOptions="Center">
+        <CollectionView x:Name="ListaUsuarios">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,8">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                <Label Text="{Binding NombreCompleto}" Style="{StaticResource SectionTitle}" FontSize="15" />
+                                <Label Text="{Binding Email}" Style="{StaticResource FieldLabel}" />
+                                <Label Text="{Binding Rol}" TextColor="{StaticResource Accent}" FontAttributes="Bold" FontSize="12" />
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="1"
+                                    Text="Cambiar rol"
+                                    Style="{StaticResource SecondaryButton}"
+                                    Clicked="OnCambiarRolClicked"
+                                    VerticalOptions="Center"
+                                    FontSize="13" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

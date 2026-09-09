@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.NuevoDesvioPage"
+             Title="Nuevo desvío">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16"
+                              Spacing="14"
+                              MaximumWidthRequest="640"
+                              HorizontalOptions="Center">
+
+            <Label Text="Cargar desvío" Style="{StaticResource Headline}" />
+            <Label Text="Registrá el hecho en el momento, con foto si es posible." Style="{StaticResource SubHeadline}" Margin="0,0,0,6" />
+
+            <!-- 1. Datos del hecho -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Datos del hecho" Style="{StaticResource SectionTitle}" />
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Lugar" Style="{StaticResource FieldLabel}" />
+                        <Picker x:Name="LugarPicker" Title="Seleccionar lugar" SelectedIndexChanged="OnLugarChanged" />
+                        <Entry x:Name="LugarManualEntry" Placeholder="Escribí el lugar si no está en la lista" IsVisible="False" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Tipo de desvío" Style="{StaticResource FieldLabel}" />
+                        <Picker x:Name="DesvioPicker" Title="Seleccionar tipo de desvío" SelectedIndexChanged="OnTipoDesvioChanged" />
+                        <Entry x:Name="TipoDesvioManualEntry" Placeholder="Escribí el tipo de desvío si no está en la lista" IsVisible="False" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 2. Empleado -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Empleado(s)" Style="{StaticResource SectionTitle}" />
+                    <Label Text="Podés elegir más de uno si el desvío afecta a varias personas." Style="{StaticResource FieldLabel}" />
+
+                    <CollectionView x:Name="SeleccionadosList" IsVisible="False">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}"
+                                        Padding="12,8"
+                                        Margin="0,0,0,6"
+                                        StrokeShape="RoundRectangle 10">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Grid.Column="0" Text="{Binding Display}" FontSize="15" VerticalOptions="Center" />
+                                        <Button Grid.Column="1"
+                                                Text="✕"
+                                                Style="{StaticResource SecondaryButton}"
+                                                Clicked="OnQuitarEmpleadoClicked"
+                                                Padding="10,4"
+                                                FontSize="13"
+                                                MinimumHeightRequest="0"
+                                                MinimumWidthRequest="0" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <SearchBar x:Name="EmpleadoSearchBar"
+                               Placeholder="Buscar por legajo o nombre..."
+                               TextChanged="OnEmpleadoSearchTextChanged" />
+
+                    <CollectionView x:Name="ResultadosEmpleadoList" HeightRequest="200">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6" Padding="12">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEmpleadoResultadoTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="{Binding Display}" FontSize="15" />
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Grid x:Name="EmpleadoManualGrid" ColumnDefinitions="*,Auto" ColumnSpacing="8" IsVisible="False">
+                        <Entry x:Name="EmpleadoManualEntry" Grid.Column="0" Placeholder="Escribí el nombre del empleado" />
+                        <Button Grid.Column="1" Text="Agregar" Clicked="OnAgregarManualClicked" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 3. Evidencia -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Evidencia" Style="{StaticResource SectionTitle}" />
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Observaciones" Style="{StaticResource FieldLabel}" />
+                        <Editor x:Name="ObservacionesEditor" HeightRequest="100" AutoSize="TextChanges" />
+                    </VerticalStackLayout>
+
+                    <Button x:Name="TomarFotoButton"
+                            Text="📷  Tomar foto"
+                            Clicked="OnTomarFotoClicked" />
+
+                    <Image x:Name="FotoPreview"
+                           HeightRequest="200"
+                           IsVisible="False"
+                           Aspect="AspectFit" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button x:Name="GuardarButton"
+                    Text="Guardar desvío"
+                    Clicked="OnGuardarClicked"
+                    FontSize="17"
+                    HeightRequest="52" />
+
+            <ActivityIndicator x:Name="GuardandoIndicator" IsRunning="False" IsVisible="False" />
+
+            <Button Text="Ver lista de desvíos"
+                    Style="{StaticResource SecondaryButton}"
+                    Clicked="OnVerListaClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

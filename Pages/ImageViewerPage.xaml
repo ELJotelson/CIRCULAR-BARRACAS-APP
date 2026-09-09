@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.ImageViewerPage"
+             BackgroundColor="Black">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Button Text="✕ Cerrar"
+                Clicked="OnCloseClicked"
+                HorizontalOptions="End"
+                Margin="12"
+                Style="{StaticResource SecondaryButton}"
+                TextColor="White"
+                BorderColor="#444444" />
+
+        <ScrollView Grid.Row="1">
+            <Image x:Name="FullImage"
+                   Aspect="AspectFit">
+                <Image.GestureRecognizers>
+                    <PinchGestureRecognizer PinchUpdated="OnPinchUpdated" />
+                </Image.GestureRecognizers>
+            </Image>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.ListaDesviosPage"
+             Title="Lista de desvíos">
+
+    <Grid RowDefinitions="Auto,*" Padding="16" MaximumWidthRequest="720" HorizontalOptions="Center">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,10">
+            <Picker x:Name="EmpleadoPicker"
+                    Title="Filtrar por empleado"
+                    SelectedIndexChanged="OnEmpleadoFiltroChanged" />
+
+            <Button Text="Exportar a Excel"
+                    Style="{StaticResource SecondaryButton}"
+                    Clicked="OnExportarExcelClicked" />
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" x:Name="ListaDesvios">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Eliminar"
+                                           BackgroundColor="{StaticResource Danger}"
+                                           Invoked="OnEliminarSwipe" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+
+                                <Image Grid.Column="0"
+                                       Source="{Binding FotoPath}"
+                                       HeightRequest="90"
+                                       WidthRequest="90"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Start">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnImageTapped" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+
+                                <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                    <Label Text="{Binding Empleado}"
+                                           Style="{StaticResource SectionTitle}" />
+
+                                    <Label Text="{Binding TipoDesvio}"
+                                           TextColor="{StaticResource Accent}"
+                                           FontAttributes="Bold"
+                                           FontSize="13" />
+
+                                    <Label Text="{Binding Inspector, StringFormat='Inspector: {0}'}"
+                                           Style="{StaticResource FieldLabel}" />
+
+                                    <Label Text="{Binding Lugar, StringFormat='Lugar: {0}'}"
+                                           Style="{StaticResource FieldLabel}" />
+
+                                    <Label Text="{Binding Observaciones}" />
+
+                                    <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                           Style="{StaticResource FieldLabel}" />
+                                </VerticalStackLayout>
+
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

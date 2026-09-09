@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.OperacionPage"
+             Title="Elegir operación">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14" MaximumWidthRequest="560" HorizontalOptions="Center">
+
+            <Label Text="¿En qué operación estás trabajando?" Style="{StaticResource SectionTitle}" FontSize="20" />
+            <Label Text="Los desvíos, la nómina y los catálogos que vas a ver dependen de esto." Style="{StaticResource SubHeadline}" Margin="0,0,0,6" />
+
+            <CollectionView x:Name="ListaOperaciones" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnOperacionTapped" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding Nombre}" Style="{StaticResource SectionTitle}" FontSize="16" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border x:Name="NuevaOperacionCard" Style="{StaticResource CardBorder}" IsVisible="False">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Nueva operación" Style="{StaticResource SectionTitle}" FontSize="15" />
+                    <Entry x:Name="NombreNuevaEntry" Placeholder="Ej: Munro" />
+                    <Button Text="Crear operación" Clicked="OnCrearOperacionClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

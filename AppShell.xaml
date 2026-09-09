@@ -3,12 +3,53 @@
     x:Class="Circulacion_Barracas.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Circulacion_Barracas"
-    Title="Circulacion_Barracas">
+    xmlns:pages="clr-namespace:Circulacion_Barracas.Pages"
+    Title="Desvíos en Plantas"
+    FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.FlyoutHeader>
+        <Border Padding="16" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCambiarOperacionTapped" />
+            </Border.GestureRecognizers>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="OPERACIÓN ACTUAL" Style="{StaticResource FieldLabel}" FontSize="11" />
+                <Label x:Name="OperacionActualLabel" Text="—" Style="{StaticResource SectionTitle}" FontSize="17" />
+                <Label Text="Tocar para cambiar" TextColor="{StaticResource Accent}" FontSize="12" Margin="0,0,0,8" />
+                <Label x:Name="UsuarioActualLabel" Text="—" FontSize="13" />
+                <Label x:Name="RolActualLabel" Text="—" TextColor="{StaticResource Accent}" FontAttributes="Bold" FontSize="12" />
+            </VerticalStackLayout>
+        </Border>
+    </Shell.FlyoutHeader>
+
+    <ShellContent Title="Nuevo desvío"
+                  Route="NuevoDesvioPage"
+                  ContentTemplate="{DataTemplate pages:NuevoDesvioPage}" />
+
+    <ShellContent Title="Lista de desvíos"
+                  Route="ListaDesviosPage"
+                  ContentTemplate="{DataTemplate pages:ListaDesviosPage}" />
+
+    <ShellContent x:Name="AlertasShellContent"
+                  Title="Alertas"
+                  Route="AlertasPage"
+                  ContentTemplate="{DataTemplate pages:AlertasPage}" />
+
+    <ShellContent x:Name="NominaShellContent"
+                  Title="Nómina"
+                  Route="NominaPage"
+                  ContentTemplate="{DataTemplate pages:NominaPage}" />
+
+    <ShellContent x:Name="CatalogosShellContent"
+                  Title="Catálogos"
+                  Route="CatalogosPage"
+                  ContentTemplate="{DataTemplate pages:CatalogosPage}" />
+
+    <ShellContent x:Name="UsuariosShellContent"
+                  Title="Usuarios"
+                  Route="UsuariosPage"
+                  ContentTemplate="{DataTemplate pages:UsuariosPage}" />
+
+    <MenuItem Text="Cerrar sesión" Clicked="OnCerrarSesionClicked" />
 
 </Shell>

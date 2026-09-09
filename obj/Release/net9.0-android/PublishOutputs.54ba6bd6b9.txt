@@ -1,3 +1,0 @@
-C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\bin\Release\net9.0-android\publish\com.companyname.circulacionbarracas-Signed.apk
-C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\bin\Release\net9.0-android\publish\com.companyname.circulacionbarracas.apk
-C:\Users\JLOLIVETO\Downloads\APP MUNRO\Circulacion-Barracas\bin\Release\net9.0-android\publish\_Microsoft.Android.Resource.Designer.dll

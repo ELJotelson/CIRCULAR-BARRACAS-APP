@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.NominaPage"
+             Title="Nómina">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="16" MaximumWidthRequest="720" HorizontalOptions="Center">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="6" Margin="0,0,0,12">
+            <Label Text="Nómina de empleados" Style="{StaticResource Headline}" FontSize="22" />
+            <Label x:Name="SubtituloLabel" Style="{StaticResource SubHeadline}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="ImportarSection" Grid.Row="1" Spacing="10" Margin="0,0,0,10">
+            <Button x:Name="ImportarButton" Text="📄  Importar Excel/CSV" Clicked="OnImportarClicked" />
+            <ActivityIndicator x:Name="ImportandoIndicator" IsRunning="False" IsVisible="False" />
+            <Label x:Name="ResultadoLabel" IsVisible="False" />
+        </VerticalStackLayout>
+
+        <SearchBar Grid.Row="2"
+                   x:Name="BuscarEmpleadoSearchBar"
+                   Placeholder="Buscar por nombre o legajo..."
+                   TextChanged="OnBuscarTextChanged"
+                   Margin="0,0,0,10" />
+
+        <CollectionView Grid.Row="3" x:Name="ListaEmpleados">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Dar de baja"
+                                           BackgroundColor="{StaticResource Danger}"
+                                           Invoked="OnDarDeBajaSwipe" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Style="{StaticResource CardBorder}" Margin="0,0,0,8" Padding="12">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Nombre}" Style="{StaticResource SectionTitle}" FontSize="15" />
+                                <Label Text="{Binding Legajo, StringFormat='Legajo: {0}'}" Style="{StaticResource FieldLabel}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

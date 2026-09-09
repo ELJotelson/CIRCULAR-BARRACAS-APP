@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Circulacion_Barracas.Pages.SignUpPage"
+             Title="Crear cuenta">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28" Spacing="18" MaximumWidthRequest="420" HorizontalOptions="Center">
+
+            <Label Text="Crear cuenta" Style="{StaticResource Headline}" HorizontalOptions="Center" />
+            <Label Text="Para reportar y ver desvíos" Style="{StaticResource SubHeadline}" HorizontalOptions="Center" Margin="0,0,0,10" />
+
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="14">
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Nombre completo" Style="{StaticResource FieldLabel}" />
+                        <Entry x:Name="NombreEntry" Placeholder="Juan Pérez" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Email" Style="{StaticResource FieldLabel}" />
+                        <Entry x:Name="EmailEntry" Placeholder="tu@empresa.com" Keyboard="Email" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Contraseña" Style="{StaticResource FieldLabel}" />
+                        <Entry x:Name="PasswordEntry" Placeholder="Mínimo 6 caracteres" IsPassword="True" />
+                    </VerticalStackLayout>
+
+                    <Label x:Name="ErrorLabel" TextColor="{StaticResource Danger}" IsVisible="False" />
+
+                    <Button x:Name="CrearCuentaButton" Text="Crear cuenta" Clicked="OnCrearCuentaClicked" />
+
+                    <ActivityIndicator x:Name="CargandoIndicator" IsRunning="False" IsVisible="False" />
+
+                    <Button Text="Ya tengo cuenta, ingresar" Style="{StaticResource SecondaryButton}" Clicked="OnVolverALoginClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
