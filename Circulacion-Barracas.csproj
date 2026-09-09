@@ -33,8 +33,7 @@
 	     por reflexión que usa el SDK de Supabase (perfiles/catálogos volvían vacíos o la app
 	     se cerraba). Se desactiva para esta plataforma; el resto sigue optimizado normal. -->
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-		<AndroidLinkMode>None</AndroidLinkMode>
-		<PublishTrimmed>false</PublishTrimmed>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
 		<RunAOTCompilation>false</RunAOTCompilation>
 	</PropertyGroup>
 
