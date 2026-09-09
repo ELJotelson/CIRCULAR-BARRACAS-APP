@@ -62,11 +62,11 @@ public partial class UsuariosPage : ContentPage
         if (!confirmar)
             return;
 
-        var ok = await supabase.CambiarRolAsync(perfil, nuevoRol);
+        var (ok, error) = await supabase.CambiarRolAsync(perfil, nuevoRol);
 
         if (!ok)
         {
-            await DisplayAlert("Error", "No se pudo cambiar el rol.", "OK");
+            await DisplayAlert("Error", $"No se pudo cambiar el rol.\n\n{error}", "OK");
             return;
         }
 

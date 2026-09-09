@@ -321,17 +321,17 @@ public class SupabaseService
         }
     }
 
-    public async Task<bool> CambiarRolAsync(Profile perfil, string nuevoRol)
+    public async Task<(bool Ok, string? Error)> CambiarRolAsync(Profile perfil, string nuevoRol)
     {
         try
         {
             perfil.Rol = nuevoRol;
             await Client.From<Profile>().Update(perfil);
-            return true;
+            return (true, null);
         }
-        catch
+        catch (Exception ex)
         {
-            return false;
+            return (false, ex.Message);
         }
     }
 
