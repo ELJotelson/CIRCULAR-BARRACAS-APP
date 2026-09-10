@@ -109,8 +109,18 @@ public partial class NominaPage : ContentPage
                 return;
             }
 
+            var existentes = await supabase.ObtenerEmpleadosAsync(operacionId);
+            var existentesPorLegajo = existentes.ToDictionary(x => x.Legajo, StringComparer.OrdinalIgnoreCase);
+
             var empleados = filas
-                .Select(f => new Empleado { OperacionId = operacionId, Legajo = f.Legajo, Nombre = f.Nombre, Activo = true })
+                .Select(f => new Empleado
+                {
+                    Id = existentesPorLegajo.TryGetValue(f.Legajo, out var existente) ? existente.Id : Guid.NewGuid(),
+                    OperacionId = operacionId,
+                    Legajo = f.Legajo,
+                    Nombre = f.Nombre,
+                    Activo = true
+                })
                 .ToList();
 
             var cantidad = await supabase.ImportarNominaAsync(empleados);
