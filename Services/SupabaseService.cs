@@ -108,15 +108,25 @@ public class SupabaseService
         }
     }
 
-    public async Task<RealtimeChannel> SuscribirseANuevosDesviosAsync(Action<Desvio> alRecibirNuevo)
+    public async Task<RealtimeChannel?> SuscribirseANuevosDesviosAsync(Action<Desvio> alRecibirNuevo)
     {
-        return await Client.From<DesvioRemoto>().On(PostgresChangesOptions.ListenType.Inserts, (_, change) =>
+        try
         {
-            var nuevo = change.Model<DesvioRemoto>();
+            if (Client.Realtime.Socket is null || !Client.Realtime.Socket.IsConnected)
+                await Client.Realtime.ConnectAsync();
 
-            if (nuevo is not null)
-                alRecibirNuevo(MapearADesvio(nuevo));
-        });
+            return await Client.From<DesvioRemoto>().On(PostgresChangesOptions.ListenType.Inserts, (_, change) =>
+            {
+                var nuevo = change.Model<DesvioRemoto>();
+
+                if (nuevo is not null)
+                    alRecibirNuevo(MapearADesvio(nuevo));
+            });
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public async Task<bool> EliminarDesvioAsync(long remoteId)
