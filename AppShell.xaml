@@ -31,7 +31,7 @@
                   ContentTemplate="{DataTemplate pages:ListaDesviosPage}" />
 
     <ShellContent x:Name="AlertasShellContent"
-                  Title="Alertas"
+                  Title="Últimos desvíos cargados"
                   Route="AlertasPage"
                   ContentTemplate="{DataTemplate pages:AlertasPage}" />
 
@@ -41,9 +41,14 @@
                   ContentTemplate="{DataTemplate pages:NominaPage}" />
 
     <ShellContent x:Name="CatalogosShellContent"
-                  Title="Catálogos"
+                  Title="Lugares"
                   Route="CatalogosPage"
                   ContentTemplate="{DataTemplate pages:CatalogosPage}" />
+
+    <ShellContent x:Name="MotivosShellContent"
+                  Title="Motivos de desvío"
+                  Route="MotivosDesvioPage"
+                  ContentTemplate="{DataTemplate pages:MotivosDesvioPage}" />
 
     <ShellContent x:Name="UsuariosShellContent"
                   Title="Usuarios"

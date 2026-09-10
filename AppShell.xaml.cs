@@ -18,6 +18,7 @@ public partial class AppShell : Shell
         this.services = services;
 
         SetFlyoutItemIsVisible(CatalogosShellContent, auth.EsAdmin);
+        SetFlyoutItemIsVisible(MotivosShellContent, auth.EsAdmin);
         SetFlyoutItemIsVisible(UsuariosShellContent, auth.EsAdmin);
 
         UsuarioActualLabel.Text = auth.EmailActual ?? "—";

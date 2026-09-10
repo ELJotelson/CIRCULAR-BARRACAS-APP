@@ -4,13 +4,13 @@ using Circulacion_Barracas.Services;
 
 namespace Circulacion_Barracas.Pages;
 
-public partial class CatalogosPage : ContentPage
+public partial class MotivosDesvioPage : ContentPage
 {
     private readonly SupabaseService supabase;
     private readonly OperacionService operacionService;
-    private readonly ObservableCollection<Lugar> items = new();
+    private readonly ObservableCollection<TipoDesvio> items = new();
 
-    public CatalogosPage(SupabaseService supabase, OperacionService operacionService)
+    public MotivosDesvioPage(SupabaseService supabase, OperacionService operacionService)
     {
         InitializeComponent();
         this.supabase = supabase;
@@ -30,7 +30,7 @@ public partial class CatalogosPage : ContentPage
         if (operacionService.Actual is null)
             return;
 
-        var resultado = await supabase.ObtenerLugaresActivosAsync(operacionService.Actual.Id);
+        var resultado = await supabase.ObtenerTiposDesvioActivosAsync(operacionService.Actual.Id);
 
         items.Clear();
         foreach (var item in resultado)
@@ -53,7 +53,7 @@ public partial class CatalogosPage : ContentPage
             return;
         }
 
-        bool ok = await supabase.AgregarLugarAsync(operacionService.Actual.Id, nombre);
+        bool ok = await supabase.AgregarTipoDesvioAsync(operacionService.Actual.Id, nombre);
 
         if (!ok)
         {
@@ -67,15 +67,15 @@ public partial class CatalogosPage : ContentPage
 
     private async void OnDesactivarSwipe(object sender, EventArgs e)
     {
-        if (sender is not SwipeItem swipeItem || swipeItem.BindingContext is not Lugar lugar)
+        if (sender is not SwipeItem swipeItem || swipeItem.BindingContext is not TipoDesvio tipo)
             return;
 
-        bool confirmar = await DisplayAlert("Desactivar", $"¿Desactivar \"{lugar.Nombre}\"?", "Desactivar", "Cancelar");
+        bool confirmar = await DisplayAlert("Desactivar", $"¿Desactivar \"{tipo.Nombre}\"?", "Desactivar", "Cancelar");
 
         if (!confirmar)
             return;
 
-        bool ok = await supabase.DesactivarLugarAsync(lugar);
+        bool ok = await supabase.DesactivarTipoDesvioAsync(tipo);
 
         if (!ok)
         {
@@ -83,6 +83,6 @@ public partial class CatalogosPage : ContentPage
             return;
         }
 
-        items.Remove(lugar);
+        items.Remove(tipo);
     }
 }

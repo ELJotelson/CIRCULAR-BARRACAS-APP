@@ -32,6 +32,7 @@ namespace Circulacion_Barracas
             builder.Services.AddTransient<NominaPage>();
             builder.Services.AddTransient<AlertasPage>();
             builder.Services.AddTransient<CatalogosPage>();
+            builder.Services.AddTransient<MotivosDesvioPage>();
             builder.Services.AddTransient<UsuariosPage>();
             builder.Services.AddTransient<AppShell>();
 
