@@ -13,6 +13,7 @@
 
         <VerticalStackLayout x:Name="ImportarSection" Grid.Row="1" Spacing="10" Margin="0,0,0,10">
             <Button x:Name="ImportarButton" Text="📄  Importar Excel/CSV" Clicked="OnImportarClicked" />
+            <Button x:Name="EliminarListaButton" Text="🗑  Eliminar por lista (Excel/CSV)" Style="{StaticResource DangerButton}" Clicked="OnEliminarListaClicked" />
             <ActivityIndicator x:Name="ImportandoIndicator" IsRunning="False" IsVisible="False" />
             <Label x:Name="ResultadoLabel" IsVisible="False" />
         </VerticalStackLayout>

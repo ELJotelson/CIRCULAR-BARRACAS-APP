@@ -142,6 +142,93 @@ public partial class NominaPage : ContentPage
         }
     }
 
+    private async void OnEliminarListaClicked(object sender, EventArgs e)
+    {
+        if (operacionService.Actual is null)
+        {
+            await DisplayAlert("Atención", "Elegí una operación primero.", "OK");
+            return;
+        }
+
+        try
+        {
+            var archivo = await FilePicker.Default.PickAsync(new PickOptions
+            {
+                PickerTitle = "Elegí el archivo con la lista a eliminar (.xlsx o .csv)",
+                FileTypes = NominaFileType
+            });
+
+            if (archivo is null)
+                return;
+
+            var extension = Path.GetExtension(archivo.FileName).ToLowerInvariant();
+
+            using var stream = await archivo.OpenReadAsync();
+            var filas = extension == ".csv" ? ParsearCsv(stream) : ParsearExcel(stream);
+
+            if (filas.Count == 0)
+            {
+                await DisplayAlert("Nómina", "No se encontraron filas válidas (se esperan columnas Legajo y Nombre).", "OK");
+                return;
+            }
+
+            var legajosABorrar = filas.Select(f => f.Legajo).ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var candidatos = await supabase.ObtenerEmpleadosAsync(operacionService.Actual.Id);
+            var coincidencias = candidatos.Where(x => legajosABorrar.Contains(x.Legajo)).ToList();
+
+            if (coincidencias.Count == 0)
+            {
+                await DisplayAlert("Nómina", "Ninguno de esos legajos está cargado en la nómina actual.", "OK");
+                return;
+            }
+
+            var nombres = string.Join("\n", coincidencias.Select(x => $"{x.Legajo} - {x.Nombre}"));
+            bool confirmar = await DisplayAlert(
+                "Eliminar por lista",
+                $"Se van a eliminar {coincidencias.Count} empleado(s):\n\n{nombres}\n\nEsta acción no se puede deshacer.",
+                "Eliminar",
+                "Cancelar");
+
+            if (!confirmar)
+                return;
+
+            EliminarListaButton.IsEnabled = false;
+            ImportandoIndicator.IsVisible = true;
+            ImportandoIndicator.IsRunning = true;
+            ResultadoLabel.IsVisible = false;
+
+            int eliminados = 0;
+            var fallidos = new List<string>();
+
+            foreach (var empleado in coincidencias)
+            {
+                var (ok, _) = await supabase.EliminarEmpleadoAsync(empleado);
+
+                if (ok)
+                    eliminados++;
+                else
+                    fallidos.Add($"{empleado.Legajo} - {empleado.Nombre}");
+            }
+
+            ResultadoLabel.Text = fallidos.Count == 0
+                ? $"Se eliminaron {eliminados} empleados."
+                : $"Se eliminaron {eliminados} empleados. No se pudieron eliminar (probablemente tienen desvíos cargados): {string.Join(", ", fallidos)}.";
+            ResultadoLabel.IsVisible = true;
+
+            await CargarListaAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"No se pudo procesar la lista: {ex.Message}", "OK");
+        }
+        finally
+        {
+            EliminarListaButton.IsEnabled = true;
+            ImportandoIndicator.IsVisible = false;
+            ImportandoIndicator.IsRunning = false;
+        }
+    }
+
     private async void OnDarDeBajaSwipe(object sender, EventArgs e)
     {
         if (sender is not SwipeItem swipeItem || swipeItem.BindingContext is not Empleado empleado)
