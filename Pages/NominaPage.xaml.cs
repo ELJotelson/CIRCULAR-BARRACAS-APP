@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using ClosedXML.Excel;
 using Circulacion_Barracas.Models;
 using Circulacion_Barracas.Services;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
 
 namespace Circulacion_Barracas.Pages;
 
@@ -139,6 +140,91 @@ public partial class NominaPage : ContentPage
             ImportarButton.IsEnabled = true;
             ImportandoIndicator.IsVisible = false;
             ImportandoIndicator.IsRunning = false;
+        }
+    }
+
+    private async void OnAgregarEmpleadoClicked(object sender, EventArgs e)
+    {
+        if (operacionService.Actual is null)
+        {
+            await DisplayAlert("Atención", "Elegí una operación primero.", "OK");
+            return;
+        }
+
+        var legajo = (NuevoLegajoEntry.Text ?? string.Empty).Trim();
+        var nombre = (NuevoNombreEntry.Text ?? string.Empty).Trim();
+
+        if (string.IsNullOrWhiteSpace(legajo) || string.IsNullOrWhiteSpace(nombre))
+        {
+            await DisplayAlert("Atención", "Completá legajo y nombre.", "OK");
+            return;
+        }
+
+        var operacionId = operacionService.Actual.Id;
+        var existentes = await supabase.ObtenerEmpleadosAsync(operacionId);
+        var existente = existentes.FirstOrDefault(x => string.Equals(x.Legajo, legajo, StringComparison.OrdinalIgnoreCase));
+
+        var empleado = new Empleado
+        {
+            Id = existente?.Id ?? Guid.NewGuid(),
+            OperacionId = operacionId,
+            Legajo = legajo,
+            Nombre = nombre,
+            Activo = true
+        };
+
+        var cantidad = await supabase.ImportarNominaAsync(new List<Empleado> { empleado });
+
+        if (cantidad == 0)
+        {
+            await DisplayAlert("Error", "No se pudo agregar al empleado.", "OK");
+            return;
+        }
+
+        NuevoLegajoEntry.Text = string.Empty;
+        NuevoNombreEntry.Text = string.Empty;
+
+        ResultadoLabel.Text = existente is null ? $"Se agregó a {nombre}." : $"Se actualizó a {nombre}.";
+        ResultadoLabel.IsVisible = true;
+
+        await CargarListaAsync();
+    }
+
+    private async void OnExportarClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            if (todosLosEmpleados.Count == 0)
+            {
+                await DisplayAlert("Nómina", "No hay empleados cargados para exportar.", "OK");
+                return;
+            }
+
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Nomina");
+
+            worksheet.Cell(1, 1).Value = "Legajo";
+            worksheet.Cell(1, 2).Value = "Nombre";
+
+            for (int i = 0; i < todosLosEmpleados.Count; i++)
+            {
+                worksheet.Cell(i + 2, 1).Value = todosLosEmpleados[i].Legajo;
+                worksheet.Cell(i + 2, 2).Value = todosLosEmpleados[i].Nombre;
+            }
+
+            var nombreOperacion = operacionService.Actual?.Nombre ?? "operacion";
+            string filePath = Path.Combine(FileSystem.CacheDirectory, $"Nomina_{nombreOperacion}.xlsx");
+            workbook.SaveAs(filePath);
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "Compartir nómina",
+                File = new ShareFile(filePath)
+            });
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"No se pudo exportar la nómina: {ex.Message}", "OK");
         }
     }
 

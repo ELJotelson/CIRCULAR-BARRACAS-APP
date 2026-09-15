@@ -14,15 +14,24 @@
         <VerticalStackLayout x:Name="ImportarSection" Grid.Row="1" Spacing="10" Margin="0,0,0,10">
             <Button x:Name="ImportarButton" Text="📄  Importar Excel/CSV" Clicked="OnImportarClicked" />
             <Button x:Name="EliminarListaButton" Text="🗑  Eliminar por lista (Excel/CSV)" Style="{StaticResource DangerButton}" Clicked="OnEliminarListaClicked" />
+
+            <Grid ColumnDefinitions="*,*,Auto" ColumnSpacing="8">
+                <Entry x:Name="NuevoLegajoEntry" Grid.Column="0" Placeholder="Legajo" />
+                <Entry x:Name="NuevoNombreEntry" Grid.Column="1" Placeholder="Nombre" />
+                <Button Grid.Column="2" Text="Agregar" Clicked="OnAgregarEmpleadoClicked" />
+            </Grid>
+
             <ActivityIndicator x:Name="ImportandoIndicator" IsRunning="False" IsVisible="False" />
             <Label x:Name="ResultadoLabel" IsVisible="False" />
         </VerticalStackLayout>
 
-        <SearchBar Grid.Row="2"
-                   x:Name="BuscarEmpleadoSearchBar"
-                   Placeholder="Buscar por nombre o legajo..."
-                   TextChanged="OnBuscarTextChanged"
-                   Margin="0,0,0,10" />
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="8" Margin="0,0,0,10">
+            <SearchBar Grid.Column="0"
+                       x:Name="BuscarEmpleadoSearchBar"
+                       Placeholder="Buscar por nombre o legajo..."
+                       TextChanged="OnBuscarTextChanged" />
+            <Button Grid.Column="1" Text="📤 Exportar" Clicked="OnExportarClicked" />
+        </Grid>
 
         <CollectionView Grid.Row="3" x:Name="ListaEmpleados">
             <CollectionView.ItemTemplate>

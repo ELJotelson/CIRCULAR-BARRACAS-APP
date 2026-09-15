@@ -148,10 +148,9 @@ public class SupabaseService
         {
             var response = await Client.From<Empleado>()
                 .Where(x => x.OperacionId == operacionId && x.Activo == true)
-                .Order(x => x.Nombre, Constants.Ordering.Ascending)
                 .Get();
 
-            return response.Models;
+            return OrdenarPorLegajo(response.Models);
         }
         catch
         {
@@ -165,10 +164,9 @@ public class SupabaseService
         {
             var response = await Client.From<Empleado>()
                 .Where(x => x.OperacionId == operacionId)
-                .Order(x => x.Nombre, Constants.Ordering.Ascending)
                 .Get();
 
-            return response.Models;
+            return OrdenarPorLegajo(response.Models);
         }
         catch
         {
@@ -256,6 +254,11 @@ public class SupabaseService
             return new List<Lugar>();
         }
     }
+
+    private static List<Empleado> OrdenarPorLegajo(List<Empleado> empleados) => empleados
+        .OrderBy(x => long.TryParse(x.Legajo, out var numero) ? numero : long.MaxValue)
+        .ThenBy(x => x.Legajo, StringComparer.OrdinalIgnoreCase)
+        .ToList();
 
     public async Task<bool> AgregarLugarAsync(Guid operacionId, string nombre)
     {
