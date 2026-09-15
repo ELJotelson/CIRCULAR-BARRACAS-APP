@@ -197,6 +197,19 @@ public class SupabaseService
         }
     }
 
+    public async Task<(bool Ok, string? Error)> EliminarEmpleadoAsync(Empleado empleado)
+    {
+        try
+        {
+            await Client.From<Empleado>().Where(x => x.Id == empleado.Id).Delete();
+            return (true, null);
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
+
     public async Task<List<Operacion>> ObtenerOperacionesActivasAsync()
     {
         try

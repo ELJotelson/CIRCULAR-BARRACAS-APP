@@ -169,6 +169,34 @@ public partial class NominaPage : ContentPage
         lista.Remove(empleado);
     }
 
+    private async void OnEliminarSwipe(object sender, EventArgs e)
+    {
+        if (sender is not SwipeItem swipeItem || swipeItem.BindingContext is not Empleado empleado)
+            return;
+
+        if (!auth.EsAdmin)
+        {
+            await DisplayAlert("Atención", "Solo un administrador puede eliminar empleados.", "OK");
+            return;
+        }
+
+        bool confirmar = await DisplayAlert("Eliminar", $"¿Eliminar a {empleado.Nombre} (legajo {empleado.Legajo})? Esta acción no se puede deshacer.", "Eliminar", "Cancelar");
+
+        if (!confirmar)
+            return;
+
+        var (ok, error) = await supabase.EliminarEmpleadoAsync(empleado);
+
+        if (!ok)
+        {
+            await DisplayAlert("Error", $"No se pudo eliminar.\n\n{error}", "OK");
+            return;
+        }
+
+        lista.Remove(empleado);
+        todosLosEmpleados.Remove(empleado);
+    }
+
     private static List<(string Legajo, string Nombre)> ParsearExcel(Stream stream)
     {
         var filas = new List<(string, string)>();

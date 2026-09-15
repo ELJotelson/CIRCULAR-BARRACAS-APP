@@ -32,6 +32,9 @@
                                 <SwipeItem Text="Dar de baja"
                                            BackgroundColor="{StaticResource Danger}"
                                            Invoked="OnDarDeBajaSwipe" />
+                                <SwipeItem Text="Eliminar"
+                                           BackgroundColor="#8B0000"
+                                           Invoked="OnEliminarSwipe" />
                             </SwipeItems>
                         </SwipeView.RightItems>
 
