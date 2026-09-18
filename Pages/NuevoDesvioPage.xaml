@@ -95,9 +95,17 @@
                         <Editor x:Name="ObservacionesEditor" HeightRequest="100" AutoSize="TextChanges" />
                     </VerticalStackLayout>
 
-                    <Button x:Name="TomarFotoButton"
-                            Text="📷  Tomar foto"
-                            Clicked="OnTomarFotoClicked" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                        <Button x:Name="TomarFotoButton"
+                                Grid.Column="0"
+                                Text="📷  Tomar foto"
+                                Clicked="OnTomarFotoClicked" />
+                        <Button x:Name="ElegirGaleriaButton"
+                                Grid.Column="1"
+                                Text="🖼️  Galería"
+                                Style="{StaticResource SecondaryButton}"
+                                Clicked="OnElegirDeGaleriaClicked" />
+                    </Grid>
 
                     <Image x:Name="FotoPreview"
                            HeightRequest="200"

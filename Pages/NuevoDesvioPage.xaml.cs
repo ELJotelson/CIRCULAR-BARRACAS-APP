@@ -244,26 +244,43 @@ public partial class NuevoDesvioPage : ContentPage
             }
 
             var foto = await MediaPicker.Default.CapturePhotoAsync();
-
-            if (foto is null)
-                return;
-
-            var nuevoNombre = $"{Guid.NewGuid()}.jpg";
-            var destino = Path.Combine(FileSystem.AppDataDirectory, nuevoNombre);
-
-            using var streamOrigen = await foto.OpenReadAsync();
-            using var streamDestino = File.OpenWrite(destino);
-            await streamOrigen.CopyToAsync(streamDestino);
-
-            fotoPath = destino;
-
-            FotoPreview.Source = ImageSource.FromFile(destino);
-            FotoPreview.IsVisible = true;
+            await GuardarFotoSeleccionadaAsync(foto);
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"No se pudo tomar la foto: {ex.Message}", "OK");
         }
+    }
+
+    private async void OnElegirDeGaleriaClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var foto = await MediaPicker.Default.PickPhotoAsync();
+            await GuardarFotoSeleccionadaAsync(foto);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"No se pudo elegir la foto: {ex.Message}", "OK");
+        }
+    }
+
+    private async Task GuardarFotoSeleccionadaAsync(FileResult? foto)
+    {
+        if (foto is null)
+            return;
+
+        var nuevoNombre = $"{Guid.NewGuid()}.jpg";
+        var destino = Path.Combine(FileSystem.AppDataDirectory, nuevoNombre);
+
+        using var streamOrigen = await foto.OpenReadAsync();
+        using var streamDestino = File.OpenWrite(destino);
+        await streamOrigen.CopyToAsync(streamDestino);
+
+        fotoPath = destino;
+
+        FotoPreview.Source = ImageSource.FromFile(destino);
+        FotoPreview.IsVisible = true;
     }
 
     private async void OnGuardarClicked(object sender, EventArgs e)
