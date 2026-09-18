@@ -2,6 +2,12 @@ using Circulacion_Barracas.Pages;
 using Circulacion_Barracas.Services;
 using Microsoft.Extensions.Logging;
 
+#if ANDROID
+using Microsoft.Maui.LifecycleEvents;
+using Plugin.Firebase.CloudMessaging;
+using Plugin.Firebase.Core.Platforms.Android;
+#endif
+
 namespace Circulacion_Barracas
 {
     public static class MauiProgram
@@ -15,12 +21,14 @@ namespace Circulacion_Barracas
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .RegisterFirebaseServices();
 
             builder.Services.AddSingleton<SupabaseService>();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<OperacionService>();
             builder.Services.AddSingleton<UpdateService>();
+            builder.Services.AddSingleton<PushNotificationService>();
             builder.Services.AddSingleton(_ =>
                 new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "desvios.db3")));
 
@@ -41,6 +49,20 @@ namespace Circulacion_Barracas
 #endif
 
             return builder.Build();
+        }
+
+        private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
+        {
+#if ANDROID
+            builder.ConfigureLifecycleEvents(events =>
+            {
+                events.AddAndroid(android => android.OnCreate((activity, _) =>
+                    CrossFirebase.Initialize(activity, () => Platform.CurrentActivity)));
+            });
+
+            builder.Services.AddSingleton(_ => CrossFirebaseCloudMessaging.Current);
+#endif
+            return builder;
         }
     }
 }

@@ -13,8 +13,8 @@
 
 		<ApplicationTitle>Desvíos en Plantas</ApplicationTitle>
 		<ApplicationId>com.companyname.circulacionbarracas</ApplicationId>
-		<ApplicationDisplayVersion>2.3</ApplicationDisplayVersion>
-		<ApplicationVersion>14</ApplicationVersion>
+		<ApplicationDisplayVersion>2.4</ApplicationDisplayVersion>
+		<ApplicationVersion>15</ApplicationVersion>
 
 		<WindowsPackageType>None</WindowsPackageType>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -52,6 +52,11 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="Supabase" Version="8.1.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<PackageReference Include="Plugin.Firebase.CloudMessaging" Version="4.0.1" />
+		<GoogleServicesJson Include="google-services.json" />
 	</ItemGroup>
 
 	<ItemGroup>

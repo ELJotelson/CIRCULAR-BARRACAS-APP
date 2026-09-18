@@ -10,7 +10,7 @@ public partial class AppShell : Shell
     private readonly OperacionService operacionService;
     private readonly IServiceProvider services;
 
-    public AppShell(AuthService auth, OperacionService operacionService, IServiceProvider services)
+    public AppShell(AuthService auth, OperacionService operacionService, IServiceProvider services, PushNotificationService push)
     {
         InitializeComponent();
         this.auth = auth;
@@ -26,6 +26,8 @@ public partial class AppShell : Shell
 
         ActualizarLabelOperacion();
         operacionService.CambioOperacion += ActualizarLabelOperacion;
+
+        _ = push.RegistrarAsync();
     }
 
     private void ActualizarLabelOperacion()

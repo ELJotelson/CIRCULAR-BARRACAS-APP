@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "701355337165",
+    "project_id": "desvios-barsat",
+    "storage_bucket": "desvios-barsat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701355337165:android:f8bf1d1702558b3def1084",
+        "android_client_info": {
+          "package_name": "com.companyname.circulacionbarracas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKyuX9uLMO8_E5MEWSJ5NLrjUTyNGOK3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

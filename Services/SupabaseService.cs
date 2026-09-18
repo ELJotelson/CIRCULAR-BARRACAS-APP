@@ -255,6 +255,20 @@ public class SupabaseService
         }
     }
 
+    public async Task<bool> RegistrarPushTokenAsync(Guid userId, string token, string platform)
+    {
+        try
+        {
+            var options = new QueryOptions { OnConflict = "token" };
+            await Client.From<PushToken>().Upsert(new PushToken { Id = Guid.NewGuid(), UserId = userId, Token = token, Platform = platform }, options);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     private static List<Empleado> OrdenarPorLegajo(List<Empleado> empleados) => empleados
         .OrderBy(x => long.TryParse(x.Legajo, out var numero) ? numero : long.MaxValue)
         .ThenBy(x => x.Legajo, StringComparer.OrdinalIgnoreCase)
